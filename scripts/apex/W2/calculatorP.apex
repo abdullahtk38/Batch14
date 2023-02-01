@@ -1,0 +1,9 @@
+Decimal dAdd = CalculatorPractice.dynamicCalulationMethod(55.5, 60,'ADDITION');
+System.debug('dAdd = ' + dAdd);
+Decimal dSUB = CalculatorPractice.dynamicCalulationMethod(55.5, 60,'SUBTRACTION');
+System.debug('dSub = ' + dSub);
+Decimal dDiv = CalculatorPractice.dynamicCalulationMethod(55.5, 60,'DIVISION');
+System.debug('div = ' + dDiv);
+Decimal dMul = CalculatorPractice.dynamicCalulationMethod(55.5, 60,'MULTIPLICATION');
+System.debug('mul = ' + dMul);
+Decimal dMul2 = CalculatorPractice.dynamicCalulationMethod(55.5, 60,'abcde');
