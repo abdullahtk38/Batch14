@@ -1,14 +1,14 @@
 <template>
     <lightning-card title="İSİM LİSTESİ" class="slds-p-around_medium " >
-      <div  style="color:rgb(16, 16, 3) ; font-weight: bold ;background-color:lightblue; font-size:15px; line-height:2" title="AD-SOYAD">
+      <div  title="AD-SOYAD">
         <ol class="slds-list_ordered">
           <template for:each={myList} for:item="eachItem">
               <li class="slds-m-bottom_small  " style="font-size:15px" key={eachItem}><b>{eachItem}</b></li>
             </template>
         </ol>
       </div>
-      <h1 class="slds-m-top_large " style="color:rgb(48, 8, 246) ; font-weight: bold ;background-color:rgb(251, 251, 251); font-size:17px ;line-height:1">Eklemek istediğiniz kişi = </h1>
-      <lightning-input style="color:purple ; font-weight: bold ;background-color:rgb(8, 223, 242);line-height:1;font-size:20px "   oncommit ={addName}></lightning-input>
+      <h1 class="slds-m-top_large " >Eklemek istediğiniz kişi = </h1>
+      <lightning-input oncommit ={addName}></lightning-input>
           <lightning-button class="slds-m-left_medium" 
               label="İsim Ekle"
               variant="brand"
@@ -36,7 +36,7 @@
             onclick={pickName}>
         </lightning-button> 
       </div>
-      <h1 class="slds-align_absolute-center " style="color:rgb(4, 4, 4) ; font-weight: bold ;background-color:rgb(255, 255, 255); font-size:20px;line-height:4">SIRADAKİ ARKADAS = </h1>
+      <h1 class="slds-align_absolute-center " style="color:rgb(4, 4, 4) ; font-weight: bold ;background-color:rgb(255, 255, 255); font-size:20px;line-height:4">İLGİLİ KİŞİ = </h1>
           
       <div class="slds-align_absolute-center " style="color:rgb(255, 0, 0) ;background-color:rgb(255, 255, 255) ">
         <ol class="slds-list_ordered">

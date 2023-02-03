@@ -23,7 +23,7 @@ export default class LwcListEditable extends LightningElement {
             let newList = [];
             let newList2 = [];
             newList=this.myList;
-            newList=[...newList].sort(() => Math.random() - 0.5);
+            newList=[newList].sort(() => Math.random() - 0.5);
            
             const a= newList[0];
             const b= newList[1];
@@ -32,10 +32,10 @@ export default class LwcListEditable extends LightningElement {
             this.selected=newList2;
         }
         if(event.target.name=="üç"){ 
-                let newList = [];
+                let newList = [ß];
                 let newList2 = [];
                 newList=this.myList;
-                newList=[...newList].sort(() => Math.random() - 0.5);
+                newList=[newList].sort(() => Math.random() - 0.5);
                 
                 const a= newList[0];
                 const b= newList[1];

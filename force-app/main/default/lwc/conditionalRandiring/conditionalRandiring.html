@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Randering">
+       <div class="slds-var-m-around_large">
+        <lightning-button variant="brand" label="Test3" title="Test3" onclick={handleClick}>
+
+        </lightning-button>
+       </div>
+       <div>
+        <template if:true={showContent}>
+            This content is conditional rendering
+        </template>
+       </div>
+    </lightning-card>
+</template>
