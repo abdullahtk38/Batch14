@@ -2,7 +2,7 @@ import { LightningElement, track } from 'lwc';
 export default class LwcListEditable extends LightningElement {
     name1;
     @track selected=[];
-    @track myList =[ "Abdullah","Salih","Emre","Bega", "İlker"];
+    @track myList =[ "Salih","Emre","Bega", "İlker"];
 
     addName(event){
         this.name1=event.target.value;

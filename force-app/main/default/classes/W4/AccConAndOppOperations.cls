@@ -54,43 +54,55 @@ public class AccConAndOppOperations {
         }
         return acc;
     }
-    // ******************** Week 5 *******************************
 
-    /*Part 1. 1.  Prepare a method which returns the sum of all the closed won opportunities Amount present in the org.*/
+
+
+
+
+
+
+    // ******************** Week 5 ******************************* WEEK 5.1 EXTRA"""""""""""""""""""""""WEEK 5.1 QUESTION
+
+    /*Part 1. 1.  Prepare a method which returns the sum of all the closed won opportunities Amount present in the org. Tüm closed won olan opportunities ler*/
     public static Decimal oppsSum(){
 
-        // List<AggregateResult> oppsSumList = new List<AggregateResult>();
-        // oppsSumList = [Select Sum(Amount), StageName from Opportunity Group by StageName];
-        // for(AggregateResult agr : oppsSumList){
-        //     if(agr.get('stageName') == 'Closed Won'){
-        //         System.debug(agr.get('expr0'));
-        //     }
-        // }
-        // return oppsSumList;
+        //  List<AggregateResult> oppsSumList = new List<AggregateResult>();
+         
+         AggregateResult oppsSum = [Select Sum(Amount)total, StageName from Opportunity Group by StageName having StageName='Closed Won'];
+         system.debug(oppsSum);
+         Decimal sum = (decimal)oppsSum.get('total');
+         return sum;
 
-        List<Opportunity> oppList = [select id, name, amount from opportunity where amount != null and stageName = 'Closed Won' ];
-        decimal sum = 0;
-        for (opportunity op : oppList) {
-            sum += op.amount;
-        }
-        return sum;
-    }
-    /*Part 1. 2. Prepare a method which will return all the Accounts for which at least a closed Won Opportunity is present. Make it dynamic if we want to bring account for other opportunity stageNames*/
-    public static List<Account> accountsWithAtLeastOneOpp(String oppstageName){
-        List<Account> accountsList = new List<Account>();
-        accountsList = [Select Id, Name from Account Where Id In (Select AccountId from opportunity Where StageName =: oppstageName)];
-        return accountsList;
 
-        // List<Opportunity> oppList = [Select AccountId from opportunity Where StageName = : oppstageName];
-        // Set<Id> ids = new Set<Id>();
+        // List<Opportunity> oppList = [select id, name, amount from opportunity where amount != null and stageName = 'Closed Won' ];
+        // decimal sum = 0;  //NULL OLMASI DURUMUNDA HATA VERMESİ AMACI İLE
         // for (opportunity op : oppList) {
-        //     ids.add(op.AccountId);
+        //     sum += op.amount;
         // }
-        // List<Account> accountsList = new List<Account>();
-        // accountsList = [Select Id, Name from Account where Id in :ids];
-        // return accountsList;
+        // return sum;
     }
+    /*Part 1. 2. Prepare a method which will return all the Accounts for which at least a closed Won Opportunity is present. Make it dynamic if we want to bring account for other opportunity stageNames --  
+  */  public static List<Account> accountsWithAtLeastOneOpp(String oppstageName){
+        List<Account> accountsList = new List<Account>();
+        accountsList = [Select Id, Name 
+                        from Account 
+                        Where Id In (Select AccountId from opportunity Where StageName =: oppstageName)];
+        return accountsList;
+        /*
+        List<Opportunity> oppList = [Select AccountId from opportunity Where StageName = : oppstageName];
+        Set<Id> ids = new Set<Id>();
+        for (opportunity op : oppList) {
+            ids.add(op.AccountId);
+        }
+        List<Account> accountsList = new List<Account>();
+        accountsList = [Select Id, Name from Account where Id in :ids];
+        return accountsList;
+        */
+    }
+
+    //
     /*Part 1. 3.Prepare a method which will return all the Accounts for which at least a contact is present*/
+    /*
     //Sol1
     public static List<Account> accountsWithAtLeastOneContact(){
         //Get the account Ids from all the contacts in the org
@@ -104,6 +116,7 @@ public class AccConAndOppOperations {
         accountsList = [Select Id, Name from Account Where Id In : accntIdsSet];
         return accountsList;
     }
+    */
     //Sol2
     public static List<Account> accountsWithAtLeastOneContact1(){
         //Get the account Ids from all the contacts in the org
@@ -111,21 +124,31 @@ public class AccConAndOppOperations {
         accountsList = [Select Id, Name from Account Where Id In (Select AccountId from Contact)];
         return accountsList;
     }
+
+
+    //WEEK 5.1 EXTRA QUESTION 2 -----------------------------------------------
     /*part 3. 1. Take account Id as input parameter and create a new contact for the provided account's Id. Populate Contact last name as same as Account's Name.*/
     public static void createContact(id accId) {
         account acc = [select id, name from Account where id = :accId];
         contact c = new contact();
         c.lastName = acc.name;
         c.accountId = acc.id;
-        System.debug('success contact');
+        System.debug('basarılı kayıt');
         insert c;
     }
     /* part 3. 2. Update the description field of top 10 opportunities as "This is one of the top 10 opportunity. 
     Please work on this properly" */
     public static void oppTop10() {
         list<Opportunity> oppTop10List = [SELECT Id, Name, Amount, Description FROM Opportunity WHERE Amount != null ORDER BY Amount DESC LIMIT 10];
+        integer x=1;
         for (opportunity op : oppTop10List) {
-            op.description = 'This is one of the top 10 opportunity. Please work on this properly';
+            
+            op.description = 'This is one of the top 10 opportunity. Please work on this properly ' + x ;
+            system.debug(op);
+            x++;
+            
+
+
         }
         System.debug('success opp');
         update oppTop10List;
@@ -180,8 +203,9 @@ public class AccConAndOppOperations {
     public static void deleteOpp() {
         List<Opportunity> delOppList =[select name  from Opportunity where Amount <20000 AND StageName = 'Closed Lost'];
         if (!delOppList.isEmpty()) {
+            
             delete delOppList;
-            System.debug('Deleted');                
+            System.debug(delOppList.size() + 'will be Deleted');                
         }else {
             System.debug('Not Deleted, your list is empty');
         }

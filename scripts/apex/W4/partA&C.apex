@@ -4,7 +4,7 @@ SELECT AccountId, lastName, FirstName, Email FROM Contact
 
 //2. Fetch all the accounts which have no Phone number populated and order them based on the Account Name in the ascending order.
 
-SELECT Id, Name, Phone FROM Account WHERE Phone = null ORDER BY Name
+SELECT Id, Name, Phone FROM Account WHERE Phone =! null ORDER BY Name
 
 //3. Find all contacts which have no account attached to them.
 SELECT Id, Name FROM Contact WHERE AccountId = null
