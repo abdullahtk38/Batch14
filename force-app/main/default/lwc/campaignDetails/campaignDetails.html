@@ -1,0 +1,67 @@
+<template>
+    <div class="campaign-card">
+      <div class="campaign-image">
+        <img src={campaign.Image_URL__c} alt={campaign.Name} />
+      </div>
+      <div class="campaign-details">
+        <h3>{campaign.Name}</h3>
+        <p>{campaign.Description__c}</p>
+        <p>Start Date: {campaign.Start_Date__c}</p>
+        <p>End Date: {campaign.End_Date__c}</p>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+    import { LightningElement, api } from 'lwc';
+  
+    export default class CampaignCard extends LightningElement {
+      @api campaign;
+    }
+  </script>
+  
+  <style>
+    .campaign-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 0.5rem #ccc;
+    }
+  
+    .campaign-image {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+  
+    .campaign-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  
+    .campaign-details h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .campaign-details p {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+  
+  
+  <template>
+    <c-custom-slider>
+      <template for:each={campaigns} for:item="campaign">
+        <c-campaign-card key={campaign.Id} campaign={campaign}></c-campaign-card>
+      </template>
+    </c-custom-slider>
+  </template>
+  
